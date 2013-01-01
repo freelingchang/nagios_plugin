@@ -36,7 +36,7 @@ main()
 	}
 	int everyyear;
     int runnian(year){
-        if(( year % 4 == 0)&& (year & 100 != 0) || (year % 400 ==0 )){
+        if(( year % 4 == 0)&& (year % 100 != 0) || (year % 400 ==0 )){
             everyyear=366;
             return everyyear;
         }
@@ -44,27 +44,15 @@ main()
             everyyear=365;
         }
     }
-	int yearnum;
-	int yeartoyear(year){
-		yearnum=year-2000;
-		if (year<2000){
-			yearnum=-yearnum;
-		}
-		return yearnum;
-	}
-	int i,allday;
+	int i,allday,yearnum;
 	allday=0;
 	int allday_no_theyear(year){
 		i=0;
+		yearnum=year-1;
 		while (i<yearnum){
-			runnian(year);
+			runnian(year-1);
 			allday=allday+everyyear;	
-			if (year>2000){
-				year--;
-			}
-			else {
-				year++;
-			}
+			year--;
 		i++;
 		}
 		return allday;
@@ -76,25 +64,79 @@ main()
 		while(i<month){
 			switch (i){
 				case 2:
-				if(everyyear=365){
+				if(everyyear==365){
 					monthday=28;
 				}
 				else {
 					monthday=29;
-				}
+				};break;
 				case 4: case 6: case 9: case 11:
-					monthday=30;
+					monthday=30;break;
 				default:
-					monthday=31;
+					monthday=31;break;
 			}
+//			printf("%d\n",monthday);
 			day_monch=day_monch+monthday;
 			i++;
 		}	
 		return day_monch;
 	}
-	yeartoyear(year);
-	day_today(year);
 	allday_no_theyear(year);
+	day_today(year);
 	total_day=allday+day_monch+1;
-//	printf("total is %d",total_day);
+//	printf("the year have %d\n",allday);
+//	printf("total is %d\n",total_day);
+	int week=total_day%7;
+	int mday;
+	switch (month){
+		case 2:
+		if(everyyear==365){
+			mday=28;
+		}
+		else {
+			mday=29;
+		}
+		case 4: case 6: case 9: case 11:
+			mday=30;
+		default:
+			mday=31;
+	}	
+	int day=1;
+	printf("            %d\n",year);
+	switch (month)	{
+		case 1: printf ("            January\n");break;
+		case 2: printf ("            Febuary\n");break;
+		case 3: printf ("            March\n");break;
+		case 4: printf ("            April\n");break;
+		case 5: printf ("            May\n");break;
+		case 6: printf ("            June\n");break;
+		case 7: printf ("            July\n");break;
+		case 8: printf ("            August\n");break;
+		case 9: printf ("            September\n");break;
+		case 10: printf ("            October\n");break;
+		case 11: printf ("            November\n");break;
+		case 12: printf ("            December\n");break;
+		default: printf ("            plesre enter month\n");break;
+	}
+//	printf("total is %d\n",week);
+	switch (week){
+		case 6: printf("                          %2d",day);break;
+		case 0: printf("  %2d",day);break;
+		case 1: printf("      %2d",day);break;
+		case 2: printf("          %2d",day);break;
+		case 3: printf("              %2d",day);break;
+		case 4: printf("                  %2d",day);break;
+		case 5: printf("                      %2d",day);break;
+		default: printf("bad!");break;
+	}
+//	printf("hello world\n");
+	if (week==6){
+		printf("\n");
+	}
+	for (i=2;i<mday+1;i++){
+		printf("  %2d",i);
+		if ((i+total_day-1)%7==6){
+		printf("\n");
+		}
+	}
 }
