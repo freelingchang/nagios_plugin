@@ -11,8 +11,6 @@ GetOptions (
 	'C=s' => \$o_community,
 );
 
-#my $o_host="192.168.1.38";
-#my $o_community="sxmobi";
 my $OID_mem_all = '.1.3.6.1.2.1.25.2';
 
 #最后一行的值=储存单元使用个数
