@@ -1,0 +1,46 @@
+安装JDK
+将目录移动到 /usr/local/jdk1.6
+vim /etc/profile
+JAVA_HOME=/usr/local/jdk1.6
+CATALINA_HOME=/usr/local/tomcat
+export JAVA_HOME CATALINA_HOME
+
+vim /usr/local/tomcat/conf/server.xml
+更改端口
+
+vim tomcat-users.xml
+设置web管理帐号
+<role rolename="admin-gui"/>
+<role rolename="admin-script"/>
+<role rolename="manager-gui"/>
+<role rolename="manager-script"/>
+<role rolename="manager-jmx"/>
+<role rolename="manager-status"/>
+<user username="system" password="password" roles="manager-gui,manager-script,manager-jmx,manager-status,admin-script,admin-gui"/>
+
+
+
+
+
+设置最大连接数 
+vim server.xml
+<Connector executor="tomcatThreadPool" port="80" protocol="HTTP/1.1" 
+               connectionTimeout="20000" 
+               redirectPort="8443" />
+<Executor name="tomcatThreadPool" namePrefix="catalina-exec-"
+        maxThreads="5000" minSpareThreads="20" maxIdleTime="600000" />
+      <Host name="localhost"  appBase="webapps"
+            unpackWARs="true" autoDeploy="true"
+            xmlValidation="false" xmlNamespaceAware="false">
+
+
+更改jvm 内存大小
+vim catalina.s
+JAVA_OPTS='-Xms256m -Xmx512m'
+
+修改根目录
+Tomcat默认的根目录是它下面webapps/ROOT的folder 
+修改 /conf 文件夹里的server.xml文件
+<Host name="localhost" appBase="webapps" unpackWARs="true" autoDeploy="true" xmlValidation="false" xmlNamespaceAware="false">
+以上定义了server中的一台主机(localhost)， 它的默认根目录是"webapps"（相对路径），现在我们要自己在Host下加上多个Context tag来创建多个自定义访问。 结果如下： <Host name="localhost" appBase="webapps" unpackWARs="true" autoDeploy="true" xmlValidation="false" xmlNamespaceAware="false"><Context path="" docBase="/mnt/vivimob/" debug="0" reloadable="true" /><Context path="/xyz" docBase="/mnt/test/" debug="0" reloadable="true" />
+一般我们用Context来覆盖Host的appBase的设定而不是直接修改appBase. 第一个Context用了path=""， 如果path=""（注意不是path="/")，则相当于是这个Host的虚拟根目录，docBase则指出了物理目录的位置（可以是绝对也可以是相对于Host的appBase的位置），如果你访问http://localhost/ 则会使用/mnt/vivimob/里的内容。第二个Context用了path="/xyz"，如果你访问http://localhost/xyz/ 则会使用/mnt/test/里的内容。
