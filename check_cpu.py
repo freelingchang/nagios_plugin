@@ -53,12 +53,12 @@ cpu_iowait_last=float(status_last_list[5])
 #因为/proc/stat 单位时cpu时间分片，一般为10ms,除以统计间隔时间
 #iowait=(cpu_iowait_now-cpu_iowait_last)
 cpu_iowait=(cpu_iowait_now-cpu_iowait_last)/time
-cpu_idle=(cpu_idle_now-cpu_idle_last)/(100*time)
+cpu_idle=(cpu_idle_now-cpu_idle_last)/time
 cpu_usage=100-cpu_idle-cpu_iowait
 def status():
-    print("空闲 %.2f%%") % cpu_idle,
-    print("使用 %.2f%%") % cpu_usage,
-    print("IO等待 %.2f%%") % cpu_iowait
+    print("idle %.2f%%") % cpu_idle,
+    print("use %.2f%%") % cpu_usage,
+    print("iowait %.2f%%") % cpu_iowait
 if cpu_usage > 95:
     status()
     sys.exit(2)
