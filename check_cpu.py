@@ -1,4 +1,4 @@
-#!/bin/python
+#!/usr/bin/env python
 #coding:utf-8
 #Date  2014.11.6
 #Author:freelingchang@gmail.com
