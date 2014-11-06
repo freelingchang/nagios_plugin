@@ -1,5 +1,6 @@
 #!/usr/bin/perl
-#date 2013/3/7_1
+#Date 2013/3/7_1
+#Author freelingchang@gmail.com
 use strict;
 use warnings;
 use Net::SNMP;
