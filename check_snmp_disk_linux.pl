@@ -1,6 +1,5 @@
 #!/usr/bin/perl
-#Date  2013/3/7_1
-#Author freelingchang@gmail.com
+#date 2013/3/7_1
 use strict;
 use warnings;
 use Net::SNMP;
@@ -81,7 +80,8 @@ my %disk_use_num=();
 my %disk_use_size=();
 my %disk_use_percent=();
 my %mount=();
-my $status;
+my $status=" OK";
+my $statu_id = 0;
 for $i (sort @i){
 	#获取每个驱动器单元大小
     $disk_units{$i}=$$result{"$diskunits_table.$i"};
@@ -103,14 +103,19 @@ for $i (sort @i){
         next;
     }
 	$mount{$i}=$$result{"$OID_mount.$i"};
-	$status=" OK";
-	if ( $disk_use_percent{$i} > 95){
-		$status=">95%% Waring!";
-		print  "$mount{$i}:$disk_use_size{$i}G/$disk_size{$i}G $disk_use_percent{$i}%, ";
-		print  "$status";
-		exit 2;
+	if ( $disk_use_percent{$i} > 85){
+        $statu_id = 1;
+        my $par = $mount{$i};
+		$status="$par >85% Waring!";
+		#print  "$mount{$i}:$disk_use_size{$i}G/$disk_size{$i}G $disk_use_percent{$i}%, ";
+		#print  "$status";
+		#exit 2;
 	}
 	print  "$mount{$i}:$disk_use_size{$i}G/$disk_size{$i}G $disk_use_percent{$i}%, ";
+}
+if ($statu_id == 1){
+	print  "$status";
+    exit 2;
 }
 
 print  "$status";
