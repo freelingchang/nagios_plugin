@@ -1,8 +1,0 @@
-git config --global core.editor vim
-git  clone  https://github.com/freelingchang/nagios_snmp_perl
-git add .
-git add  filename
-git commit -m "new file rili.c"
-git remote add origin  https://github.com/freelingchang/nagios_snmp_perl
-git push origin master
-
