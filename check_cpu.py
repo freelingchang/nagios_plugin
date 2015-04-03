@@ -5,7 +5,7 @@
 import os
 import sys
 import time
-# 妈的，oracle linux 5.10 python 是2.4的，没有这个模块
+# 我咧个去，oracle linux 5.10 python 是2.4的，没有这个模块
 try:
     from multiprocessing import cpu_count
     cpu_num = cpu_count()
